@@ -1,35 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
+import Card from './Components/Card';
+import SaturnImg from './assets/saturn.jpg';
+import viteLogo from './assets/vite.svg';
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const [score, setScore] = useState(0);
+    const [highScore, setHighScore] = useState(0);
+    const [cardImages, setCardImages] = useState([]);
+
+    useEffect(() => {
+        async function fetchImages() {
+            const fetchedCardImages = await fetchCardImages();
+            setCardImages(fetchedCardImages);
+        };
+
+        fetchImages();
+    }, [])
+
+    async function fetchCardImages() {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve([SaturnImg, viteLogo]);
+            }, 2000);
+        });
+    }
+
+    function win() {
+        setScore(prevScore => {
+            const newScore = prevScore + 1;
+            if (newScore > highScore) {
+                setHighScore(newScore);
+            }
+
+            return newScore;
+        })
+    }
+
+    function lose() {
+        setScore(0);
+    }
+
+    return (
+        <>
+            <p>Score: {score}</p>
+            <p>High Score: {highScore}</p>
+            <button onClick={() => win()}>Win</button>
+            <button onClick={() => lose()}>Lose</button>
+            <section className="cards-section">
+                {cardImages.map((cardImage, index) => (
+                    <Card CardImage={cardImage} key={index}/>
+                ))
+                }
+            </section>
+        </>
+    )
 }
 
 export default App
