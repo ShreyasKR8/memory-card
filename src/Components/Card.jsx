@@ -1,9 +1,8 @@
 
-function Card({ CardImage}) {
-
+function Card({ CardImage, onCardClick }) {
     return(
-        <div className="Card">
-            <img src={CardImage} />
+        <div className="Card" onClick={onCardClick}>
+            <img src={CardImage} width={"250px"} height={"280px"}/>
         </div>
     )
 }

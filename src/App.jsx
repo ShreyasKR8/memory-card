@@ -9,6 +9,7 @@ function App() {
     const [score, setScore] = useState(0);
     const [highScore, setHighScore] = useState(0);
     const [cardImages, setCardImages] = useState([]);
+    const [clickedImages, setClickedImages] = useState(new Set());
 
     useEffect(() => {
         async function fetchImages() {
@@ -36,11 +37,22 @@ function App() {
             const url = ele.url;
             imagesUrls.push(url);
         });
-        // console.log(imagesUrls)
+        console.log(imagesUrls.length)
         return imagesUrls;
     }
 
-    function win() {
+    function handleCardClicked(clickedImage) {
+        if(clickedImages.has(clickedImage)) {
+            gameOver();
+            return;
+        }
+        const updatedSet = new Set(clickedImages);
+        updatedSet.add(clickedImage)
+        setClickedImages(updatedSet);
+        updateScores();
+    }
+
+    function updateScores() {
         setScore(prevScore => {
             const newScore = prevScore + 1;
             if (newScore > highScore) {
@@ -51,19 +63,18 @@ function App() {
         })
     }
 
-    function lose() {
+    function gameOver() {
         setScore(0);
+        setClickedImages(new Set());
     }
 
     return (
         <>
             <p>Score: {score}</p>
             <p>High Score: {highScore}</p>
-            <button onClick={() => win()}>Win</button>
-            <button onClick={() => lose()}>Lose</button>
             <section className="cards-section">
                 {cardImages.map((cardImage, index) => (
-                    <Card CardImage={cardImage} key={index} />
+                    <Card CardImage={cardImage} key={index} onCardClick={() => handleCardClicked(cardImage)}/>
                 ))
                 }
             </section>
