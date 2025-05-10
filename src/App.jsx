@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import Card from './Components/Card';
-import SaturnImg from './assets/saturn.jpg';
-import viteLogo from './assets/vite.svg';
+
+const API_KEY = "live_lol_no";
 
 function App() {
 
@@ -20,11 +20,24 @@ function App() {
     }, [])
 
     async function fetchCardImages() {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve([SaturnImg, viteLogo]);
-            }, 2000);
+
+        const apiURL = `https://api.thecatapi.com/v1/images/search?limit=12&mime_types=jpg,png`
+
+        let imagesUrls = [];
+        const response = await fetch(apiURL, {
+            headers: {
+                'x-api-key': API_KEY
+            }
         });
+
+        const data = await response.json();
+
+        data.forEach(ele => {
+            const url = ele.url;
+            imagesUrls.push(url);
+        });
+        // console.log(imagesUrls)
+        return imagesUrls;
     }
 
     function win() {
@@ -50,7 +63,7 @@ function App() {
             <button onClick={() => lose()}>Lose</button>
             <section className="cards-section">
                 {cardImages.map((cardImage, index) => (
-                    <Card CardImage={cardImage} key={index}/>
+                    <Card CardImage={cardImage} key={index} />
                 ))
                 }
             </section>

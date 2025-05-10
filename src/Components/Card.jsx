@@ -1,4 +1,3 @@
-// import saturnImg from '../assets/Saturn.jpg'
 
 function Card({ CardImage}) {
 
