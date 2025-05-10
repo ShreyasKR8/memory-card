@@ -19,24 +19,47 @@ header {
 }
 
 .cards-section {
+    padding-top: 20px;
+
+    overflow-y: auto;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     align-items: center;
     gap: 20px;
+    grid-template-areas: 
+        "card1 card2 card3 card4 card5"
+        "card6 card7 card8 card9 card10"
+        ". card11 . card12 .";
+        height: 70vh;
+}
+
+.card11 {
+    grid-area: card11;
+}
+
+.card12 {
+    grid-area: card12;
 }
 
 .card {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 4px;
+    border-radius: 8px;
     padding: 8px 0px;
     background: #f8b400;
 }
 
+.card:hover {
+    transform: translateY(-4px); /* Moves the card slightly upward */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Adds a shadow for the floating effect */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition */
+    cursor: pointer; /* Changes cursor to pointer */
+}
+
 .card-image {
     width: 270px;
-  height: 270px;
-  object-fit: cover;
-  border-radius: 4px;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 4px;
 }

@@ -100,14 +100,14 @@ function App() {
             <header className='header-section'>
                 <h1>Cats Memory Game</h1>
                 <p>Get points by clicking on an image but don't click on any more than once!</p>
+                <section className="game-stats">
+                    <h3>Score: {gameStats.score}</h3>
+                    <h3>High Score: {gameStats.highScore}</h3>
+                </section>
             </header>
-            <section className="game-stats">
-                <h3>Score: {gameStats.score}</h3>
-                <h3>High Score: {gameStats.highScore}</h3>
-            </section>
             <section className="cards-section">
                 {cardImages.map((cardImage, index) => (
-                    <Card CardImage={cardImage} key={index} onCardClick={() => handleCardClicked(cardImage)} />
+                    <Card CardImage={cardImage} key={index} onCardClick={() => handleCardClicked(cardImage)} extraClassName={"card"+(index+1)}/>
                 ))
                 }
             </section>
