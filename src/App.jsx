@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Card from './Components/Card';
 
-const API_KEY = "live_vvhXMoYxpfXhhByLBBLUGzUHem3o0IMomJSrhuRJjYHIoMmlwocuMLiffgP8cn9Q";
-
 function App() {
     const [gameStats, setGameStats] = useState({
         score: 0,
@@ -28,7 +26,7 @@ function App() {
         let imagesUrls = [];
         const response = await fetch(apiURL, {
             headers: {
-                'x-api-key': API_KEY
+                'x-api-key': process.env.REACT_APP_CAT_API_KEY
             }
         });
 
