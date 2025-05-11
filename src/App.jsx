@@ -26,6 +26,7 @@ function App() {
         let imagesUrls = [];
         const response = await fetch(apiURL, {
             headers: {
+                // eslint-disable-next-line no-undef
                 'x-api-key': process.env.REACT_APP_CAT_API_KEY
             }
         });
@@ -109,6 +110,9 @@ function App() {
                 ))
                 }
             </section>
+            <footer className='footer-section'>
+                <p>Favicon by <a href="https://www.flaticon.com/free-icons/paw" title="paw icons">Paw icons created by Mihimihi - Flaticon</a></p>
+            </footer>
         </>
     )
 }
